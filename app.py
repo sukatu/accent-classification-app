@@ -14,11 +14,11 @@ tmp_path = None
 def has_audio_stream(file_path):
     import subprocess
     try:
-        # Use ffprobe to check for audio streams
         result = subprocess.run(
             ["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries", "stream=codec_type", "-of", "default=noprint_wrappers=1:nokey=1", file_path],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
         )
+        st.info(f"ffprobe output: {result.stdout}")  # For debugging
         return "audio" in result.stdout
     except Exception:
         return False
