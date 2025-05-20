@@ -1,16 +1,16 @@
-# Accent Classifier Tool
+# English Accent Classifier (Streamlit App)
 
-This is a Streamlit app that:
+## 🚀 What It Does
+Takes a public video URL (MP4/Loom), extracts the audio, transcribes speech, and detects English accent (British, American, etc.).
 
-1. Accepts a public video URL (MP4, Loom, etc.)
-2. Extracts audio
-3. Transcribes speech using Whisper
-4. Classifies English accents (e.g., British, American, etc.)
-5. Outputs a confidence score
+## 🔧 Features
+- Whisper model for transcription
+- Hugging Face transformer for accent classification
+- Simple Streamlit UI
 
-## 🚀 How to Run
-
-1. Clone this repo:
+## ▶️ Running Locally
 ```bash
-git clone https://github.com/your-username/accent-classifier.git
-cd accent-classifier
+git clone https://github.com/issasuka/english-accent-classifier.git
+cd english-accent-classifier
+pip install -r requirements.txt
+streamlit run app.py
