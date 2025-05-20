@@ -1,0 +1,6 @@
+streamlit
+ffmpeg-python
+whisper
+transformers
+torch
+requests
