@@ -3,7 +3,6 @@ import tempfile
 import streamlit as st
 import requests
 from utils.accent_model import classify_accent
-from moviepy.editor import VideoFileClip
 
 st.title("Accent Classification App By (Issa Sukatu Abdullahi sukaissa@gmail.com)")
 
@@ -19,39 +18,10 @@ def has_audio_stream(file_path):
             ["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries", "stream=codec_type", "-of", "default=noprint_wrappers=1:nokey=1", file_path],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
         )
-        st.info(f"ffprobe output: {result.stdout}")
+        st.info(f"ffprobe output: {result.stdout}")  # For debugging
         return "audio" in result.stdout
     except Exception:
         return False
-
-def process_video(video_file):
-    try:
-        # Create a temporary file to store the video
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as tmp_file:
-            tmp_path = tmp_file.name
-            tmp_file.write(video_file.read())
-        
-        # Check if video has audio
-        video = VideoFileClip(tmp_path)
-        if video.audio is None:
-            st.error("This video file does not contain an audio stream. Please upload a video with recorded audio (e.g., speech or music).")
-            return None
-        
-        # Get file extension
-        file_suffix = os.path.splitext(video_file.name)[1]
-        
-        # Play the video with audio
-        st.video(tmp_path, format=f'video/{file_suffix[1:]}')
-        
-        # Clean up
-        video.close()
-        os.unlink(tmp_path)
-        
-        return True
-        
-    except Exception as e:
-        st.error(f"Error processing video: {str(e)}")
-        return None
 
 if uploaded_file is not None:
     file_suffix = os.path.splitext(uploaded_file.name)[1].lower()
@@ -60,7 +30,10 @@ if uploaded_file is not None:
         tmp_path = tmp.name
     st.success(f"Temporary file saved at: {tmp_path}")
     if file_suffix == ".mp4":
-        process_video(uploaded_file)
+        st.video(tmp_path)
+        if not has_audio_stream(tmp_path):
+            st.error("This video file does not contain an audio stream.")
+            tmp_path = None
     else:
         st.audio(tmp_path, format=f'audio/{file_suffix[1:]}')
 
@@ -77,7 +50,10 @@ elif video_url:
                 tmp_path = tmp.name
             st.success(f"Downloaded file saved at: {tmp_path}")
             if file_suffix == ".mp4":
-                process_video(uploaded_file)
+                st.video(tmp_path)
+                if not has_audio_stream(tmp_path):
+                    st.error("This video file does not contain an audio stream.")
+                    tmp_path = None
             else:
                 st.audio(tmp_path, format=f'audio/{file_suffix[1:]}')
     except Exception as e:

@@ -4,5 +4,4 @@ whisper
 transformers
 torch
 requests
-moviepy
 git+https://github.com/openai/whisper.git
