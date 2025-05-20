@@ -18,7 +18,7 @@ def has_audio_stream(file_path):
             ["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries", "stream=codec_type", "-of", "default=noprint_wrappers=1:nokey=1", file_path],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
         )
-        st.info(f"ffprobe output: {result.stdout}")  # For debugging
+        st.info(f"ffprobe output: {result.stdout}")
         return "audio" in result.stdout
     except Exception:
         return False
@@ -31,9 +31,9 @@ if uploaded_file is not None:
     st.success(f"Temporary file saved at: {tmp_path}")
     if file_suffix == ".mp4":
         st.video(tmp_path)
-        if not has_audio_stream(tmp_path):
-            st.error("This video file does not contain an audio stream.")
-            tmp_path = None
+       if not has_audio_stream(tmp_path):
+    st.error("This video file does not contain an audio stream. Please upload a video with recorded audio (e.g., speech or music).")
+    tmp_path = None
     else:
         st.audio(tmp_path, format=f'audio/{file_suffix[1:]}')
 
