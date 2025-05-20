@@ -31,7 +31,7 @@ if uploaded_file is not None:
     st.success(f"Temporary file saved at: {tmp_path}")
     if file_suffix == ".mp4":
         st.video(tmp_path)
-       if not has_audio_stream(tmp_path):
+        if not has_audio_stream(tmp_path):
     st.error("This video file does not contain an audio stream. Please upload a video with recorded audio (e.g., speech or music).")
     tmp_path = None
     else:
