@@ -32,10 +32,10 @@ if uploaded_file is not None:
     if file_suffix == ".mp4":
         st.video(tmp_path)
         if not has_audio_stream(tmp_path):
-    st.error("This video file does not contain an audio stream. Please upload a video with recorded audio (e.g., speech or music).")
-    tmp_path = None
+            st.error("This video file does not contain an audio stream. Please upload a video with recorded audio (e.g., speech or music).")
+            tmp_path = None
     else:
-        st.audio(tmp_path, format=f'audio/{file_suffix[1:]}')
+        st.audio(tmp_path, format=f'audio/{file_suffix[1:]}")
 
 elif video_url:
     try:
