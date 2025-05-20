@@ -1,7 +1,6 @@
 streamlit
-ffmpeg-python
 whisper
+moviepy
 transformers
 torch
 requests
-git+https://github.com/openai/whisper.git
