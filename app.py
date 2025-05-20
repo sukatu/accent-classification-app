@@ -4,7 +4,7 @@ import streamlit as st
 import requests
 from utils.accent_model import classify_accent
 
-st.title("Accent Classification App By (Issa Sukatu Abdullahi)")
+st.title("Accent Classification App By (Issa Sukatu Abdullahi sukaissa@gmail.com)")
 
 uploaded_file = st.file_uploader("Upload an audio file (.wav, .mp3, .mp4)", type=["wav", "mp3", "mp4"])
 video_url = st.text_input("Or enter a public video URL (e.g., direct MP4 link):")
