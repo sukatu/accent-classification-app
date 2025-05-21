@@ -10,8 +10,10 @@ whisper_model = whisper.load_model("base")
 # You can replace this with a custom fine-tuned accent model
 accent_classifier = pipeline("text-classification", model="facebook/bart-large-mnli", framework="pt")
 
-def classify_accent(audio_path):
-    transcription = whisper_model.transcribe(audio_path)["text"]
+def classify_accent(text):
+    classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
+    result = classifier(text, candidate_labels=["American", "British", "Australian", "Indian", "Nigerian"])
+    return result['labels'][0], round(result['scores'][0] * 100, 2), text
 
     # Simulate accent prediction by inferring from the transcription (replace this logic as needed)
     classes = ["British English", "American English", "Indian English", "Nigerian English", "Australian English"]
