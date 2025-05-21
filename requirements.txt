@@ -2,6 +2,6 @@ Flask
 whisper
 transformers
 torch
-requests
 pydub
-git+https://github.com/openai/whisper.git
+requests
+gunicorn
