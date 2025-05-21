@@ -8,8 +8,11 @@ whisper_model = whisper.load_model("base")
 
 # Dummy accent classifier using huggingface sentiment pipeline for now
 # You can replace this with a custom fine-tuned accent model
-accent_classifier = pipeline("text-classification", model="facebook/bart-large-mnli", framework="pt")
-
+accent_classifier = pipeline(
+    "zero-shot-classification",
+    model="typeform/distilbert-base-uncased-mnli",  # ✅ Lighter model
+    framework="pt"
+)
 def classify_accent(text):
     classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
     result = classifier(text, candidate_labels=["American", "British", "Australian", "Indian", "Nigerian"])
