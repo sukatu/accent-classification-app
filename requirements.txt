@@ -1,6 +1,6 @@
 Flask
 whisper
-torch
-moviepy
 transformers
+torch
 requests
+pydub
